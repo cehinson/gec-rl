@@ -33,26 +33,28 @@ lr = 0.01
 encoder_optimizer = optim.SGD(encoder.parameters(), lr=lr)
 decoder_optimizer = optim.SGD(attn_decoder.parameters(), lr=lr)
 
-# print('MLE Training for 500k iterations')
-# train_n_iters(encoder, attn_decoder, 500000, pairs, input_lang, output_lang, print_every=1000)
+print('MLE Training for 500k iterations')
+train_n_iters(encoder, attn_decoder,
+              encoder_optimizer, decoder_optimizer,
+              500000, pairs, input_lang, output_lang, print_every=1000)
 
 # Load from checkpoint
-print('loading encoder...')
-enc_chkpt = torch.load('encoder.pt')
-encoder.load_state_dict(enc_chkpt['model_state_dict'])
-encoder_optimizer.load_state_dict(enc_chkpt['optimizer_state_dict'])
-iters_enc = enc_chkpt['iters']
-loss_enc = enc_chkpt['loss']
+# print('loading encoder...')
+# enc_chkpt = torch.load('encoder.pt')
+# encoder.load_state_dict(enc_chkpt['model_state_dict'])
+# encoder_optimizer.load_state_dict(enc_chkpt['optimizer_state_dict'])
+# iters_enc = enc_chkpt['iters']
+# loss_enc = enc_chkpt['loss']
 
-print('loading decoder...')
-dec_chkpt = torch.load('decoder.pt')
-attn_decoder.load_state_dict(dec_chkpt['model_state_dict'])
-encoder_optimizer.load_state_dict(dec_chkpt['optimizer_state_dict'])
-iters_dec = dec_chkpt['iters']
-loss_dec = dec_chkpt['loss']
+# print('loading decoder...')
+# dec_chkpt = torch.load('decoder.pt')
+# attn_decoder.load_state_dict(dec_chkpt['model_state_dict'])
+# encoder_optimizer.load_state_dict(dec_chkpt['optimizer_state_dict'])
+# iters_dec = dec_chkpt['iters']
+# loss_dec = dec_chkpt['loss']
 
-assert(iters_dec == iters_enc)
-assert(loss_dec == loss_enc)
+# assert(iters_dec == iters_enc)
+# assert(loss_dec == loss_enc)
 
 print('Reinforcement Learning for another 300k iterations')
 reinforce_n_iters(encoder, attn_decoder,
