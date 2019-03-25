@@ -29,8 +29,8 @@ def prepare_data(lang1, lang2, reverse=False):
 def read_langs(lang1, lang2, reverse=False):
     print("Reading lines...")
 
-    src_lines = open('data/dev/comb.src', encoding='utf-8').read().strip().split('\n')
-    tgt_lines = open('data/dev/comb.tgt', encoding='utf-8').read().strip().split('\n')
+    src_lines = open('data/comb.src', encoding='utf-8').read().strip().split('\n')
+    tgt_lines = open('data/comb.tgt', encoding='utf-8').read().strip().split('\n')
 
     pairs = [[normalize_str(s1), normalize_str(s2)] for s1, s2 in zip(src_lines, tgt_lines)]
 
