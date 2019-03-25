@@ -123,8 +123,10 @@ def reinforce(input_tensor, target_tensor,
     return loss.item()  # / target_length
 
 
-def reinforce_n_iters(encoder, decoder, n_iters, pairs, input_lang, output_lang,
-                      print_every=1000, plot_every=100, lr=0.01):
+def reinforce_n_iters(encoder, decoder,
+                      encoder_optimizer, decoder_optimizer, n_iters,
+                      pairs, input_lang, output_lang,
+                      print_every=1000, plot_every=100):
     """
     The whole training process looks like this :
         -- Start a timer
@@ -137,11 +139,9 @@ def reinforce_n_iters(encoder, decoder, n_iters, pairs, input_lang, output_lang,
     print_loss_total = 0
     plot_loss_total = 0
 
-    encoder_optimizer = optim.SGD(encoder.parameters(), lr=lr)
-    decoder_optimizer = optim.SGD(decoder.parameters(), lr=lr)
-
     training_pairs = [random.choice(pairs)
                       for i in range(n_iters)]
+
     training_tensors = [pair2tensors(
         pair, input_lang, output_lang) for pair in training_pairs]
 
