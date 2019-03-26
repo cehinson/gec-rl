@@ -68,12 +68,13 @@ def reinforce(input_tensor, target_tensor,
                 try:
                     m = Categorical(logits=decoder_output)
                     action = m.sample()
+
+                    if action.item() == Lang.EOS_token:
+                        break
+
                 except Exception as e:
                     print(e)
                     breakpoint()
-
-                if action.item() == Lang.EOS_token:
-                    break
 
                 out_sent.append(output_lang.idx2word[action.item()])
                 out_prob += decoder_output[0][action.item()]
@@ -91,12 +92,13 @@ def reinforce(input_tensor, target_tensor,
                 try:
                     m = Categorical(logits=decoder_output)
                     action = m.sample()
+
+                    if action.item() == Lang.EOS_token:
+                        break
+
                 except Exception as e:
                     print(e)
                     breakpoint()
-
-                if action.item() == Lang.EOS_token:
-                    break
 
                 out_sent.append(output_lang.idx2word[action.item()])
                 out_prob += decoder_output[0][action.item()]
