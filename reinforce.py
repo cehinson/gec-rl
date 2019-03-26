@@ -148,9 +148,11 @@ def reinforce_n_iters(encoder, decoder,
     print_loss_total = 0
     plot_loss_total = 0
 
+    print('Shuffling data...')
     training_pairs = [random.choice(pairs)
                       for i in range(n_iters)]
 
+    print('Converting data to tensors...')
     training_tensors = [pair2tensors(
         pair, input_lang, output_lang) for pair in training_pairs]
 
