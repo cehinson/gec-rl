@@ -113,8 +113,8 @@ def reinforce(input_tensor, target_tensor,
         hyp_probs.append(out_prob)
 
     hyp_probs = torch.stack(hyp_probs)  # turn list into tensor
-    breakpoint()
-    hyp_probs = F.softmax(hyp_probs, dim=0)  # FIXME normalize probability values
+    # FIXME normalize probability values
+    hyp_probs = F.softmax(hyp_probs, dim=0)
 
     scores = []
     for k in range(hypothesis_to_generate):
@@ -124,16 +124,15 @@ def reinforce(input_tensor, target_tensor,
 
     scores = torch.tensor(scores, device=DEV_)
 
-    breakpoint()
-    reward = torch.sum(torch.log(hyp_probs) * scores)
-    # TODO CHECK BASELINE
-    baseline = reward / hypothesis_to_generate
-    loss = -1.0 * (reward - baseline)
+    reward = torch.sum(hyp_probs * scores)
+    baseline = reward / hypothesis_to_generate  # TODO CHECK BASELINE
+
+    loss = -torch.sum(torch.log(hyp_probs)) * (reward - baseline)
     loss.backward()
 
     encoder_optimizer.step()
     decoder_optimizer.step()
-    return loss.item()  # / target_length TODO CHECK THIS
+    return loss.item() / target_length  # TODO CHECK THIS
 
 
 def reinforce_n_iters(encoder, decoder,
