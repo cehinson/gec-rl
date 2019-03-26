@@ -124,6 +124,7 @@ def reinforce(input_tensor, target_tensor,
 
     scores = torch.tensor(scores, device=DEV_)
 
+    breakpoint()
     reward = torch.sum(torch.log(hyp_probs) * scores)
     # TODO CHECK BASELINE
     baseline = reward / hypothesis_to_generate
