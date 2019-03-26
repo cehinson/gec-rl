@@ -113,7 +113,8 @@ def reinforce(input_tensor, target_tensor,
         hyp_probs.append(out_prob)
 
     hyp_probs = torch.stack(hyp_probs)  # turn list into tensor
-    hyp_probs = F.softmax(hyp_probs, dim=0)  # normalize probability values
+    breakpoint()
+    hyp_probs = F.softmax(hyp_probs, dim=0)  # FIXME normalize probability values
 
     scores = []
     for k in range(hypothesis_to_generate):
