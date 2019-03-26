@@ -59,6 +59,6 @@ assert(loss_dec == loss_enc)
 print('Reinforcement Learning for another 300k iterations')
 reinforce_n_iters(encoder, attn_decoder,
                   encoder_optimizer, decoder_optimizer,
-                  300000, pairs, input_lang, output_lang, print_every=1000)
+                  300000, pairs, input_lang, output_lang, print_every=50)
 
 evaluate_pairs(encoder, attn_decoder, control_pairs)
