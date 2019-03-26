@@ -64,8 +64,12 @@ def reinforce(input_tensor, target_tensor,
                 # topv, topi = decoder_output.topk(1)
                 # out_sent.append(output_lang.idx2word[topi.item()])
                 # out_prob += topv
-                m = Categorical(logits=decoder_output)
-                action = m.sample()
+                try:
+                    m = Categorical(logits=decoder_output)
+                    action = m.sample()
+                except Exception as e:
+                    print(e)
+                    breakpoint()
 
                 if action.item() == Lang.EOS_token:
                     break
@@ -83,8 +87,12 @@ def reinforce(input_tensor, target_tensor,
                 # topv, topi = decoder_output.topk(1)
                 # out_sent.append(output_lang.idx2word[topi.item()])
                 # out_prob += topv
-                m = Categorical(logits=decoder_output)
-                action = m.sample()
+                try:
+                    m = Categorical(logits=decoder_output)
+                    action = m.sample()
+                except Exception as e:
+                    print(e)
+                    breakpoint()
 
                 if action.item() == Lang.EOS_token:
                     break
@@ -112,8 +120,8 @@ def reinforce(input_tensor, target_tensor,
 
     scores = torch.tensor(scores, device=DEV_)
 
-    # TODO add baseline (use sample mean reward)
     reward = torch.sum(torch.log(hyp_probs) * scores)
+    # TODO CHECK BASELINE
     baseline = reward / hypothesis_to_generate
     loss = -1.0 * (reward - baseline)
     loss.backward()
