@@ -1,5 +1,6 @@
 import time
 import random
+import tqdm
 
 import torch
 import torch.nn as nn
@@ -153,7 +154,7 @@ def reinforce_n_iters(encoder, decoder,
     training_tensors = [pair2tensors(
         pair, input_lang, output_lang) for pair in training_pairs]
 
-    for iter in range(1, n_iters + 1):
+    for iter in tqdm(range(1, n_iters + 1)):
         tensor_pair = training_tensors[iter - 1]
         sent_pair = training_pairs[iter - 1]
         input_tensor = tensor_pair[0]
