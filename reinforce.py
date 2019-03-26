@@ -93,14 +93,14 @@ def reinforce(input_tensor, target_tensor,
                 out_prob += decoder_output[0][action.item()]
 
                 decoder_input = action.detach()
+                # FIXME Check this!
                 # decoder_input = topi.squeeze().detach()  # detach from history as input
-                if decoder_input.item() == Lang.EOS_token:
-                    break
+                # if decoder_input.item() == Lang.EOS_token:
+                #    break
 
         hyp_sents.append(out_sent)
         hyp_probs.append(out_prob)
 
-    breakpoint()
     hyp_probs = torch.stack(hyp_probs)  # turn list into tensor
     hyp_probs = F.softmax(hyp_probs, dim=0)  # normalize probability values
 
