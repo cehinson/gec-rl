@@ -72,14 +72,14 @@ def reinforce(input_tensor, target_tensor,
                     if action.item() == Lang.EOS_token:
                         break
 
+                    out_sent.append(output_lang.idx2word[action.item()])
+                    out_prob += decoder_output[0][action.item()]
+
+                    decoder_input = target_tensor[di]  # Teacher forcing
+
                 except Exception as e:
                     print(e)
                     breakpoint()
-
-                out_sent.append(output_lang.idx2word[action.item()])
-                out_prob += decoder_output[0][action.item()]
-
-                decoder_input = target_tensor[di]  # Teacher forcing
         else:
             # Without teacher forcing: use its own predictions as the next input to decoder
             for di in range(target_length):
@@ -96,14 +96,15 @@ def reinforce(input_tensor, target_tensor,
                     if action.item() == Lang.EOS_token:
                         break
 
+                    out_sent.append(output_lang.idx2word[action.item()])
+                    out_prob += decoder_output[0][action.item()]
+
+                    decoder_input = action.detach()
+
                 except Exception as e:
                     print(e)
                     breakpoint()
 
-                out_sent.append(output_lang.idx2word[action.item()])
-                out_prob += decoder_output[0][action.item()]
-
-                decoder_input = action.detach()
                 # FIXME Check this!
                 # decoder_input = topi.squeeze().detach()  # detach from history as input
                 # if decoder_input.item() == Lang.EOS_token:
