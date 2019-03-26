@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, print_function, division
 import random
 import time
-from tqdm impor tqdm
+from tqdm import tqdm
 
 import torch
 import torch.nn as nn
