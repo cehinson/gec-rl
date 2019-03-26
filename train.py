@@ -126,7 +126,7 @@ def train_n_iters(encoder, decoder,
     torch.save({
         'iters': n_iters,
         'model_state_dict': decoder.state_dict(),
-        'optimizer_state_dict': decoder.state_dict(),
+        'optimizer_state_dict': decoder_optimizer.state_dict(),
         'loss': loss
     }, 'decoder.pt')
 
