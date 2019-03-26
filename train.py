@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, print_function, division
 import random
 import time
+import tqdm
 
 import torch
 import torch.nn as nn
@@ -86,17 +87,17 @@ def train_n_iters(encoder, decoder,
     print_loss_total = 0
     plot_loss_total = 0
 
-    print('Shuffling training data')
+    print('Shuffling training data...')
     training_pairs = [random.choice(pairs)
                       for i in range(n_iters)]
 
-    print('Converting training data to tensors')
+    print('Converting training data to tensors...')
     training_tensors = [pair2tensors(
         pair, input_lang, output_lang) for pair in training_pairs]
 
     criterion = nn.NLLLoss()
 
-    for iter in range(1, n_iters + 1):
+    for iter in tqdm(range(1, n_iters + 1)):
         tensor_pair = training_tensors[iter - 1]
         input_tensor = tensor_pair[0]
         target_tensor = tensor_pair[1]
