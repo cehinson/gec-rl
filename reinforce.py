@@ -129,7 +129,7 @@ def reinforce(input_tensor, target_tensor,
 
     encoder_optimizer.step()
     decoder_optimizer.step()
-    return loss.item()  # / target_length
+    return loss.item()  # / target_length TODO CHECK THIS
 
 
 def reinforce_n_iters(encoder, decoder,
