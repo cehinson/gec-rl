@@ -49,7 +49,7 @@ train_n_iters(encoder, attn_decoder,
 # print('loading decoder...')
 # dec_chkpt = torch.load('decoder.pt')
 # attn_decoder.load_state_dict(dec_chkpt['model_state_dict'])
-# encoder_optimizer.load_state_dict(dec_chkpt['optimizer_state_dict'])
+# decoder_optimizer.load_state_dict(dec_chkpt['optimizer_state_dict'])
 # iters_dec = dec_chkpt['iters']
 # loss_dec = dec_chkpt['loss']
 
