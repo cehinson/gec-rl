@@ -29,7 +29,7 @@ attn_decoder = AttnDecoderRNN(
     hidden_size, output_lang.n_words, MAX_LENGTH, dropout_p=0.1).to(DEV_)
 
 # Setup optimizer
-lr = 0.01
+lr = 0.001
 encoder_optimizer = optim.SGD(encoder.parameters(), lr=lr)
 decoder_optimizer = optim.SGD(attn_decoder.parameters(), lr=lr)
 
