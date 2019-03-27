@@ -69,11 +69,11 @@ def reinforce(input_tensor, target_tensor,
                     m = Categorical(logits=decoder_output)
                     action = m.sample()
 
-                    if action.item() == Lang.EOS_token:
+                    if action.cpu().item() == Lang.EOS_token:
                         break
 
-                    out_sent.append(output_lang.idx2word[action.item()])
-                    out_prob += decoder_output[0][action.item()]
+                    out_sent.append(output_lang.idx2word[action.cpu().item()])
+                    out_prob += decoder_output[0][action.cpu().item()]
 
                     decoder_input = target_tensor[di]  # Teacher forcing
 
@@ -96,8 +96,8 @@ def reinforce(input_tensor, target_tensor,
                     if action.item() == Lang.EOS_token:
                         break
 
-                    out_sent.append(output_lang.idx2word[action.item()])
-                    out_prob += decoder_output[0][action.item()]
+                    out_sent.append(output_lang.idx2word[action.cpu().item()])
+                    out_prob += decoder_output[0][action.cpu().item()]
 
                     decoder_input = action.detach()
 
