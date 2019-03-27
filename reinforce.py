@@ -113,7 +113,7 @@ def reinforce(input_tensor, target_tensor,
         hyp_sents.append(out_sent)
         hyp_probs.append(out_prob)
 
-    hyp_probs = torch.tensor(hyp_probs)
+    hyp_probs = torch.tensor(hyp_probs, device=DEV_)
     # FIXME normalize probability values
     hyp_probs = F.softmax(hyp_probs, dim=0)
     print(hyp_probs)
