@@ -129,6 +129,7 @@ def reinforce(input_tensor, target_tensor,
     baseline = reward / hypothesis_to_generate  # TODO CHECK BASELINE
 
     loss = -torch.sum(torch.log(hyp_probs)) * (reward - baseline)
+    print('loss {} - reward {} - baseline {}'.format(loss, reward, baseline))
     loss.backward()
 
     encoder_optimizer.step()
