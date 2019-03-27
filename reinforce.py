@@ -130,6 +130,8 @@ def reinforce(input_tensor, target_tensor,
 
     loss = -torch.sum(torch.log(hyp_probs)) * (reward - baseline)
     print('loss {} - reward {} - baseline {}'.format(loss, reward, baseline))
+    if loss < 1e-3:
+        breakpoint()
     loss.backward()
 
     encoder_optimizer.step()
